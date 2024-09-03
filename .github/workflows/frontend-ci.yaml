@@ -1,4 +1,3 @@
-# Workflow name
 name: Frontend Continuous Integration
 
 on:
