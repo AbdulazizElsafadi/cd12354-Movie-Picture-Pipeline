@@ -39,7 +39,9 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
+        working-directory: starter/frontend
         run: npm ci
 
       - name: Check Application Styles
+        working-directory: starter/frontend
         run: npm run lint
