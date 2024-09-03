@@ -37,16 +37,7 @@ jobs:
 
       - name: Install Dependencies
         working-directory: starter/backend
-        run: pipenv install
-
-        # TODO: should be removed
-      - name: List installed packages
-        working-directory: starter/backend
-        run: pipenv run pip list
-
-      - name: Verify flake8 Installation
-        working-directory: starter/backend
-        run: pipenv run flake8
+        run: pipenv install --dev
 
       - name: Check Application Styles
         working-directory: starter/backend
