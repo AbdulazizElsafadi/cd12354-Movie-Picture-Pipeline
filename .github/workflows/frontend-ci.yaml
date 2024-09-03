@@ -1,0 +1,84 @@
+# Workflow name
+name: Frontend Continuous Integration
+
+on:
+  # Manual trigger using the workflow_dispatch event
+  workflow_dispatch:
+
+  # Automatic trigger on pull request events targeting the main branch
+  pull_request:
+    branches:
+      - main
+
+  # Scheduled trigger at 5:00 AM UTC, Monday through Friday
+  schedule:
+    - cron: "0 5 * * 1-5"
+
+# Jobs defined in the workflow
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check Application Styles
+        run: npm run lint
+
+  # build-and-test-2:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: latest
+
+  #     - name: Print a message for main branch
+  #       if: github.ref == 'refs/heads/main'
+  #       run: echo "This is the main branch."
+
+  #     - name: Print a message for non-main branches
+  #       if: github.ref != 'refs/heads/main'
+  #       run: echo "This is not the main branch."
+
+  #     - name: Run tests
+  #       run: npm test
+
+  #     - name: Debug message
+  #       if: env.DEBUG == 'true'
+  #       run: echo "Debugging is enabled."
+
+  # post-build-actions:
+  #   needs: [lint, build-and-test-2]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Publish test results
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: test-results
+  #         path: test-results.xml
