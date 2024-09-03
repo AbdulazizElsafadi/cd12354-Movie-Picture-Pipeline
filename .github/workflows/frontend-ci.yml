@@ -7,10 +7,10 @@ on:
     branches:
       - main
 
-# Jobs defined in the workflow
 jobs:
   lint:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
