@@ -1,9 +1,9 @@
 name: Frontend Continuous Integration
 
 on:
-  workflow_dispatch: # Manual trigger using the workflow_dispatch event
+  workflow_dispatch:
 
-  pull_request: # Automatic trigger on pull request events targeting the main branch
+  pull_request:
     branches:
       - main
 
