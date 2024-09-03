@@ -3,13 +3,7 @@ name: Frontend Continuous Integration
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - develop
-
   pull_request:
-    branches:
-      - main
 
 jobs:
   lint:
