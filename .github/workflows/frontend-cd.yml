@@ -72,6 +72,7 @@ jobs:
           aws eks update-kubeconfig --name cluster --region us-east-1
 
       - name: Set the Deployment image to latest version
+        working-directory: starter/frontend/k8s
         run: |
           kustomize edit set image $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
