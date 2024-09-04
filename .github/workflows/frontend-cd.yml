@@ -1,0 +1,45 @@
+name: Frontend Continuous Deployment
+
+on:
+  workflow_dispatch:
+  # remove it
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Install Dependencies
+        working-directory: starter/frontend
+        run: npm ci
+
+      - name: Check Application Styles
+        working-directory: starter/frontend
+        run: npm run lint
+
+      - name: Test Application
+        working-directory: starter/frontend
+        run: npm test
+
+  build:
+    needs: [lint_test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build Application with Docker
+        working-directory: starter/frontend
+        run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
