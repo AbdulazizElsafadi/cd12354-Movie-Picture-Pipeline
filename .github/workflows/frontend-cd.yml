@@ -77,5 +77,6 @@ jobs:
           kustomize edit set image $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Apply the manifests to the cluster
+        working-directory: starter/frontend/k8s
         run: |
           kustomize build | kubectl apply -f -
