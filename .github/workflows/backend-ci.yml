@@ -9,7 +9,7 @@ on:
       - develop
   pull_request:
     branches:
-      - develop
+      - main
 
 jobs:
   lint:
@@ -74,34 +74,37 @@ jobs:
         working-directory: starter/backend
         run: pipenv run test
 
-  # build:
-  #   needs: [lint, test]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  build:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Set up python
-  #       uses: actions/setup-python@v5
-  #       with:
-  #         python-version: "3.10"
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
-  #     - name: Cache dependencies
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ~/.cache/pip
-  #         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-pip-
+      - name: Install pipenv
+        run: pip install pipenv
 
-  #     - name: Install Dependencies
-  #       working-directory: starter/backend
-  #       run: pipenv install
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-  #     - name: Test Application
-  #       working-directory: starter/backend
-  #       run: pipenv run test
+      - name: Install Dependencies
+        working-directory: starter/backend
+        run: pipenv install
 
-  #     - name: Build Application
-  #       working-directory: starter/backend
-  #       run: npm run build
+      - name: Test Application
+        working-directory: starter/backend
+        run: pipenv run test
+
+      - name: Build Application
+        working-directory: starter/backend
+        run: docker build --tag mp-backend:latest .
