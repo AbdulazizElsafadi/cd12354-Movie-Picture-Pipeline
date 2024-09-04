@@ -3,6 +3,11 @@ name: Frontend Continuous Integration
 on:
   workflow_dispatch:
 
+    # remove it
+  push:
+    branches:
+      - develop
+
   pull_request:
     branches:
       - main
