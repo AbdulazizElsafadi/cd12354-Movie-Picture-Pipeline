@@ -69,7 +69,7 @@ jobs:
 
       - name: Kubeconfig Auth
         run: |
-          aws eks update-kubeconfig --name cluster --region us-east-1
+          aws eks update-kubeconfig --name cluster --region us-east-1 --profile github-action-user
 
       - name: Set the Deployment image to latest version
         working-directory: starter/frontend/k8s
