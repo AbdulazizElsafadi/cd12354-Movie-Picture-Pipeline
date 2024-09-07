@@ -2,12 +2,16 @@ name: Frontend Continuous Deployment
 
 on:
   workflow_dispatch:
+
+    # remove it
   push:
     branches:
       - develop
+
   pull_request:
     branches:
       - main
+
 jobs:
   lint_test:
     runs-on: ubuntu-latest
