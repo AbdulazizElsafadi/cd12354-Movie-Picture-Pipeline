@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 091020206356.dkr.ecr.us-east-1.amazonaws.com/frontend:18f547300f1790c650f6fca53db5ec03b8c5c4c0
+          image: PLACEHOLDER_IMAGE
           ports:
             - containerPort: 3000
