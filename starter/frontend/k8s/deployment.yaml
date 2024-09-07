@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: PLACEHOLDER_IMAGE
+          image: frontend
           ports:
             - containerPort: 3000
