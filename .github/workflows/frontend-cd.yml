@@ -68,6 +68,9 @@ jobs:
           docker tag mp-frontend:${{ github.sha }} $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
+      - name: print image
+        run: echo $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
       - name: Kubeconfig Auth
         run: |
           aws eks update-kubeconfig --name cluster --region us-east-1
