@@ -6,3 +6,10 @@ node_modules
 credentials
 .pytest_cache
 .DS_Store
+.terraform
+.terraform.tfstate.lock.info
+*.tfstate.backup
+*/**/.terraform
+*/**/.terraform.tfstate
+*/**/.terraform.lock.hcl
+*/**/terraform.tfstate
