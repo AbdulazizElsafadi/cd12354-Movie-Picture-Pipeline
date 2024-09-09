@@ -11,6 +11,8 @@ function MovieList({ onMovieClick }) {
     });
   }, []);
 
+  console.log('movies:', movies);
+
   return (
     <ul>
       {movies.map((movie) => (
