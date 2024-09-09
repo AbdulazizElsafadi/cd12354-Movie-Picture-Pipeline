@@ -84,7 +84,7 @@ jobs:
 
       - name: Build Application with Docker
         working-directory: starter/frontend
-        run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag mp-frontend:${{ github.sha }} .
+        run: docker build --build-arg=REACT_APP_MOVIE_API_URL=a0ca54e002a6f4f68888c3fb0aca75d6-228317918.us-east-1.elb.amazonaws.com --tag mp-frontend:${{ github.sha }} .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
