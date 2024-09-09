@@ -9,6 +9,8 @@ function MovieDetail({ movie }) {
     });
   }, [movie]);
 
+  console.log('details:', details);
+
   return (
     <div>
       <h2>{details?.movie.title}</h2>
